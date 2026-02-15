@@ -493,6 +493,7 @@ fn setup_provider() -> Result<(String, String, String)> {
             ("mistral", "Mistral — Large & Codestral"),
             ("xai", "xAI — Grok 3 & 4"),
             ("perplexity", "Perplexity — search-augmented AI"),
+            ("gemini", "Google Gemini — 1.5 Pro & Flash"),
         ],
         1 => vec![
             ("groq", "Groq — ultra-fast LPU inference"),
@@ -594,6 +595,9 @@ fn setup_provider() -> Result<(String, String, String)> {
             "vercel" => "https://vercel.com/account/tokens",
             "cloudflare" => "https://dash.cloudflare.com/profile/api-tokens",
             "bedrock" => "https://console.aws.amazon.com/iam",
+            "cloudflare" => "https://dash.cloudflare.com/profile/api-tokens",
+            "bedrock" => "https://console.aws.amazon.com/iam",
+            "gemini" | "google" => "https://aistudio.google.com/app/apikey",
             _ => "",
         };
 
@@ -735,6 +739,11 @@ fn setup_provider() -> Result<(String, String, String)> {
             ("codellama", "Code Llama"),
             ("phi3", "Phi-3 (small, fast)"),
         ],
+        "gemini" | "google" => vec![
+            ("gemini-1.5-pro", "Gemini 1.5 Pro (recommended)"),
+            ("gemini-1.5-flash", "Gemini 1.5 Flash (fast)"),
+            ("gemini-1.0-pro", "Gemini 1.0 Pro"),
+        ],
         _ => vec![("default", "Default model")],
     };
 
@@ -783,6 +792,8 @@ fn provider_env_var(name: &str) -> &'static str {
         "vercel" | "vercel-ai" => "VERCEL_API_KEY",
         "cloudflare" | "cloudflare-ai" => "CLOUDFLARE_API_KEY",
         "bedrock" | "aws-bedrock" => "AWS_ACCESS_KEY_ID",
+        "bedrock" | "aws-bedrock" => "AWS_ACCESS_KEY_ID",
+        "gemini" | "google" => "GOOGLE_API_KEY",
         _ => "API_KEY",
     }
 }
